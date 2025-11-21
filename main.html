@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>喵子致Tiantian bunny的2025跨年夜邀请</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            color: white;
+            height: 100vh;
+            background: linear-gradient(to bottom, #0c0032, #190061, #240090, #3500d3);
+        }
+        
+        #stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            background: linear-gradient(to right, #ff9a9e, #fad0c4, #fad0c4, #a1c4fd);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            max-width: 800px;
+            line-height: 1.6;
+        }
+        
+        .invitation-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 30px;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .bunny {
+            font-size: 4rem;
+            margin: 20px 0;
+            animation: bounce 2s infinite;
+        }
+        
+        .countdown {
+            font-size: 1.8rem;
+            margin: 20px 0;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 30px;
+            border-radius: 50px;
+            display: inline-block;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        
+        #accept-btn {
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            color: #0c0032;
+        }
+        
+        #accept-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 154, 158, 0.7);
+        }
+        
+        #decline-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        #decline-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .message-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 10px;
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            resize: vertical;
+        }
+        
+        #send-btn {
+            background: linear-gradient(45deg, #a1c4fd, #c2e9fb);
+            color: #0c0032;
+        }
+        
+        .email-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 30px rgba(255, 255, 255, 0.6);
+            }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            p {
+                font-size: 1.2rem;
+            }
+            
+            .invitation-box {
+                padding: 20px;
+            }
+            
+            .bunny {
+                font-size: 3rem;
+            }
+            
+            .buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="stars-container"></canvas>
+    
+    <div class="content">
+        <div class="invitation-box">
+            <h1>喵子致Tiantian bunny的跨年邀请</h1>
+            <p>在2025年最后的时光里，我想邀请你，Tiantian bunny，与我一起迎接2026年的到来。</p>
+           <div class="bunny">
+            <img src="main.png" alt="Tiantian bunny" style="width: 100px; height: auto;" />
+            </div>  
+            <p>喵子希望我们能一起勇敢的面对崭新的未来和一起成为更好的人，</p>
+            <p>所以，我真诚的，急切地，认真的，严肃的，向你表达。</p>
+            <div class="countdown" id="countdown"></div>
+            <p>你愿意与我共度这个特别的跨年夜吗？</p>
+            
+            <div class="buttons">
+                <button id="accept-btn">当然愿意！</button>
+                <button id="decline-btn">我考虑一下，再表示以下我愿意。</button>
+            </div>
+            
+            <div class="message-box" id="message-box">
+                <p>请留下你的回复或想法：</p>
+                <input type="email" id="user-email" class="email-input" placeholder="请输入你的邮箱(可选)">
+                <textarea id="message-text" placeholder="在这里写下你想对喵子说的话..."></textarea>
+                <button id="send-btn">发送回复给喵子</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 初始化EmailJS
+        (function() {
+            emailjs.init("-FJoKHyUjtGOuUmsf"); // 替换为您的EmailJS Public Key
+        })();
+        
+        // 创建星空背景
+        const canvas = document.getElementById('stars-container');
+        const ctx = canvas.getContext('2d');
+        
+        // 设置canvas尺寸
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        
+        // 星星类
+        class Star {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speed = Math.random() * 0.5;
+                this.brightness = Math.random();
+                this.twinkleSpeed = Math.random() * 0.05;
+                this.twinkleDirection = Math.random() > 0.5 ? 1 : -1;
+            }
+            
+            update() {
+                // 星星闪烁效果
+                this.brightness += this.twinkleSpeed * this.twinkleDirection;
+                if (this.brightness <= 0 || this.brightness >= 1) {
+                    this.twinkleDirection *= -1;
+                }
+                
+                // 星星移动
+                this.y += this.speed;
+                if (this.y > canvas.height) {
+                    this.y = 0;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+            
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.brightness})`;
+                ctx.fill();
+            }
+        }
+        
+        // 创建星星
+        const stars = [];
+        const starCount = 300;
+        
+        for (let i = 0; i < starCount; i++) {
+            stars.push(new Star());
+        }
+        
+        // 动画循环
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // 绘制星星
+            stars.forEach(star => {
+                star.update();
+                star.draw();
+            });
+            
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+        
+        // 倒计时功能
+        function updateCountdown() {
+            const targetDate = new Date('January 1, 2026 00:00:00').getTime();
+            const now = new Date().getTime();
+            const timeLeft = targetDate - now;
+            
+            if (timeLeft < 0) {
+                document.getElementById('countdown').textContent = "2026年即将到来！";
+                return;
+            }
+            
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            
+            document.getElementById('countdown').textContent = 
+                `距离2026年还有: ${days}天 ${hours}小时 ${minutes}分 ${seconds}秒`;
+        }
+        
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+        
+        // 按钮交互
+        document.getElementById('accept-btn').addEventListener('click', function() {
+            document.getElementById('message-box').style.display = 'block';
+            document.getElementById('message-text').value = "亲爱的喵子，我很高兴接受你的邀请！我已经开始期待我们的跨年夜了！";
+            createFireworks();
+        });
+        
+        document.getElementById('decline-btn').addEventListener('click', function() {
+            document.getElementById('message-box').style.display = 'block';
+            document.getElementById('message-text').value = "亲爱的喵子，感谢你的邀请！我需要考虑一下，稍后给你回复。（如果你不建议我垮起个小黑脸）";
+        });
+        
+        // 发送邮件功能
+        document.getElementById('send-btn').addEventListener('click', function() {
+            const message = document.getElementById('message-text').value;
+            const userEmail = document.getElementById('user-email').value;
+            
+            if (message.trim() === "") {
+                alert("请先输入一些内容！");
+                return;
+            }
+            
+            // 使用EmailJS发送反馈
+            sendEmailFeedback(message, userEmail);
+        });
+        
+                function sendEmailFeedback(message, userEmail) {
+            // 显示发送中状态
+            const sendBtn = document.getElementById('send-btn');
+            const originalText = sendBtn.textContent;
+            sendBtn.textContent = '发送中...';
+            sendBtn.disabled = true;
+            
+            // 获取当前时间
+            const now = new Date();
+            const timeString = now.toLocaleString('zh-CN');
+            
+            // 准备邮件参数
+         
+            const templateParams = {
+                to_email: 'hutianqiao@hotmail.com', // 收件人邮箱已修改
+                from_name: userEmail ? `Tiantian bunny (${userEmail})` : 'Tiantian bunny',
+                reply_to: userEmail || 'hsycipher@hotmail.com',
+                message: message,
+                time: timeString
+            };
+
+            
+            // 使用EmailJS发送邮件
+            emailjs.send('service_m4n51tp', 'template_ommu26j', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    sendBtn.textContent = '发送成功！';
+                    sendBtn.style.background = 'linear-gradient(45deg, #4CAF50, #8BC34A)';
+                    
+                    // 显示成功消息
+                    alert("你的回复已成功发送给喵子！她会尽快查看的。");
+                    
+                    // 3秒后恢复按钮状态
+                    setTimeout(() => {
+                        sendBtn.textContent = originalText;
+                        sendBtn.disabled = false;
+                        sendBtn.style.background = 'linear-gradient(45deg, #a1c4fd, #c2e9fb)';
+                        document.getElementById('message-box').style.display = 'none';
+                    }, 3000);
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    alert("发送失败，请稍后重试或直接联系喵子。");
+                    sendBtn.textContent = originalText;
+                    sendBtn.disabled = false;
+                });
+        }
+        
+        // 庆祝特效
+        function createFireworks() {
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const firework = document.createElement('div');
+                    firework.style.position = 'fixed';
+                    firework.style.left = Math.random() * 100 + 'vw';
+                    firework.style.top = Math.random() * 100 + 'vh';
+                    firework.style.width = '4px';
+                    firework.style.height = '4px';
+                    firework.style.backgroundColor = getRandomColor();
+                    firework.style.borderRadius = '50%';
+                    firework.style.boxShadow = '0 0 10px ' + getRandomColor();
+                    firework.style.zIndex = '3';
+                    document.body.appendChild(firework);
+                    
+                    // 移除元素
+                    setTimeout(() => {
+                        firework.remove();
+                    }, 2000);
+                }, i * 100);
+            }
+        }
+        
+        function getRandomColor() {
+            const colors = ['#ff9a9e', '#fad0c4', '#a1c4fd', '#c2e9fb', '#d4fc79'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+    </script>
+</body>
+</html>
