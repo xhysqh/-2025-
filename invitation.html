@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>邀请函 - 喵子和兔兔的日常</title>
     <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --success-color: #28a745;
+            --error-color: #e74c3c;
+            --border-color: #ddd;
+            --text-color: #333;
+            --text-secondary: #555;
+            --text-light: #666;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,7 +24,7 @@
 
         body {
             font-family: 'Arial', 'Microsoft YaHei', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -48,20 +59,20 @@
         }
 
         .header h1 {
-            color: #667eea;
+            color: var(--primary-color);
             font-size: 32px;
             margin-bottom: 10px;
         }
 
         .header .subtitle {
-            color: #666;
+            color: var(--text-light);
             font-size: 16px;
         }
 
         .content {
             margin-bottom: 30px;
             line-height: 1.8;
-            color: #333;
+            color: var(--text-color);
         }
 
         .content p {
@@ -76,7 +87,7 @@
         }
 
         .email-section h3 {
-            color: #667eea;
+            color: var(--primary-color);
             margin-bottom: 15px;
             font-size: 20px;
         }
@@ -88,14 +99,14 @@
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            color: #555;
+            color: var(--text-secondary);
             font-weight: bold;
         }
 
         .form-group input {
             width: 100%;
             padding: 12px 15px;
-            border: 2px solid #ddd;
+            border: 2px solid var(--border-color);
             border-radius: 8px;
             font-size: 16px;
             transition: border-color 0.3s;
@@ -103,15 +114,15 @@
 
         .form-group input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: var(--primary-color);
         }
 
         .form-group input.error {
-            border-color: #e74c3c;
+            border-color: var(--error-color);
         }
 
         .error-message {
-            color: #e74c3c;
+            color: var(--error-color);
             font-size: 14px;
             margin-top: 5px;
             display: none;
@@ -124,7 +135,7 @@
         .submit-btn {
             width: 100%;
             padding: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: white;
             border: none;
             border-radius: 8px;
@@ -180,12 +191,12 @@
             padding: 15px;
             border-radius: 8px;
             margin-top: 20px;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid var(--primary-color);
         }
 
         .info-box p {
             margin: 0;
-            color: #555;
+            color: var(--text-secondary);
             font-size: 14px;
         }
 
@@ -264,7 +275,7 @@
                 // 如果URL中有邮箱，自动验证并高亮显示
                 const emailInput = document.getElementById('email');
                 if (validateEmail(emailFromURL)) {
-                    emailInput.style.borderColor = '#28a745';
+                    emailInput.style.borderColor = getComputedStyle(document.documentElement).getPropertyValue('--success-color').trim();
                 }
             }
         });
@@ -320,7 +331,13 @@
             };
             
             // 获取现有绑定列表
-            let bindings = JSON.parse(localStorage.getItem('emailBindings') || '[]');
+            let bindings = [];
+            try {
+                bindings = JSON.parse(localStorage.getItem('emailBindings') || '[]');
+            } catch (e) {
+                console.warn('Failed to parse email bindings, starting fresh:', e);
+                bindings = [];
+            }
             
             // 检查邮箱是否已存在
             const existingIndex = bindings.findIndex(b => b.email === email);
@@ -332,10 +349,12 @@
                 bindings.push(binding);
             }
             
-            localStorage.setItem('emailBindings', JSON.stringify(bindings));
-            
-            // 同时保存最新的绑定信息
-            localStorage.setItem('currentEmailBinding', JSON.stringify(binding));
+            try {
+                localStorage.setItem('emailBindings', JSON.stringify(bindings));
+                localStorage.setItem('currentEmailBinding', JSON.stringify(binding));
+            } catch (e) {
+                console.error('Failed to save email binding:', e);
+            }
         }
 
         // 表单提交处理
@@ -368,7 +387,7 @@
                 submitBtn.disabled = false;
                 submitBtn.textContent = '确认绑定';
                 
-                // 3秒后隐藏成功消息
+                // 5秒后隐藏成功消息
                 setTimeout(function() {
                     successMessage.classList.remove('show');
                 }, 5000);
@@ -390,14 +409,15 @@
             const email = e.target.value.trim();
             const emailInput = document.getElementById('email');
             const emailError = document.getElementById('emailError');
+            const styles = getComputedStyle(document.documentElement);
             
             if (email !== '' && validateEmail(email)) {
-                emailInput.style.borderColor = '#28a745';
+                emailInput.style.borderColor = styles.getPropertyValue('--success-color').trim();
                 emailError.classList.remove('show');
             } else if (email !== '') {
-                emailInput.style.borderColor = '#e74c3c';
+                emailInput.style.borderColor = styles.getPropertyValue('--error-color').trim();
             } else {
-                emailInput.style.borderColor = '#ddd';
+                emailInput.style.borderColor = styles.getPropertyValue('--border-color').trim();
             }
         });
 
