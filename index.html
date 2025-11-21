@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>喵子和兔兔的邀请函 - 日常记录</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="invitation-card">
+            <div class="header">
+                <h1 class="title">✨ 喵子和兔兔的邀请函 ✨</h1>
+                <p class="subtitle">诚挚邀请您见证我们的美好时光</p>
+            </div>
+
+            <div class="content">
+                <div class="emoji-banner">
+                    <span class="emoji">🐱</span>
+                    <span class="heart">💕</span>
+                    <span class="emoji">🐰</span>
+                </div>
+
+                <div class="invitation-text">
+                    <p class="main-text">
+                        亲爱的朋友，<br><br>
+                        我们诚挚地邀请您<br>
+                        一起分享我们的日常点滴<br>
+                        见证我们的甜蜜时光
+                    </p>
+                </div>
+
+                <div class="event-details">
+                    <div class="detail-item">
+                        <span class="icon">📅</span>
+                        <span class="detail-text">时间：随时欢迎</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="icon">📍</span>
+                        <span class="detail-text">地点：线上空间</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="icon">🎉</span>
+                        <span class="detail-text">主题：日常记录分享</span>
+                    </div>
+                </div>
+
+                <div class="rsvp-section">
+                    <h2 class="rsvp-title">请留下您的联系方式</h2>
+                    <form id="rsvpForm" class="rsvp-form">
+                        <div class="form-group">
+                            <label for="name">姓名</label>
+                            <input type="text" id="name" name="name" placeholder="请输入您的姓名" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">电子邮箱</label>
+                            <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">留言</label>
+                            <textarea id="message" name="message" rows="4" placeholder="想对我们说的话..."></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">发送邀请回复</button>
+                    </form>
+                    <div id="successMessage" class="success-message" style="display: none;">
+                        <p>✅ 感谢您的回复！邮件已准备好发送。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p class="footer-text">期待与您相见 🌟</p>
+                <p class="date">喵子和兔兔 敬邀</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
