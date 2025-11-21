@@ -19,7 +19,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // 构建邮件内容
-        const recipient = 'your-email@example.com'; // 替换为实际接收邮箱
+        // 配置：将下面的邮箱地址替换为实际接收邮箱
+        const recipient = 'your-email@example.com'; // TODO: 替换为实际接收邮箱
         const subject = encodeURIComponent('邀请函回复 - ' + name);
         const body = encodeURIComponent(
             '姓名: ' + name + '\n' +
@@ -35,8 +36,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // 同时保存到本地存储
         saveRSVP(name, email, message);
 
-        // 打开邮件客户端
-        window.location.href = mailtoLink;
+        // 使用临时链接打开邮件客户端，避免影响当前页面
+        const tempLink = document.createElement('a');
+        tempLink.href = mailtoLink;
+        tempLink.style.display = 'none';
+        document.body.appendChild(tempLink);
+        tempLink.click();
+        document.body.removeChild(tempLink);
 
         // 显示成功消息
         showSuccessMessage();
@@ -57,8 +63,14 @@ document.addEventListener('DOMContentLoaded', function() {
             timestamp: new Date().toISOString()
         };
 
-        // 获取现有RSVP列表
-        let rsvpList = JSON.parse(localStorage.getItem('rsvpList') || '[]');
+        // 获取现有RSVP列表，带错误处理
+        let rsvpList = [];
+        try {
+            rsvpList = JSON.parse(localStorage.getItem('rsvpList') || '[]');
+        } catch (e) {
+            console.error('Failed to parse RSVP list from localStorage:', e);
+            rsvpList = [];
+        }
         
         // 添加新的RSVP
         rsvpList.push(rsvpData);
@@ -69,17 +81,20 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('RSVP已保存:', rsvpData);
     }
 
+    // 成功消息显示时长（毫秒）
+    const SUCCESS_MESSAGE_DURATION = 3000;
+
     // 显示成功消息
     function showSuccessMessage() {
         form.style.display = 'none';
         successMessage.style.display = 'block';
 
-        // 3秒后重置表单
+        // 一段时间后重置表单
         setTimeout(function() {
             form.reset();
             form.style.display = 'flex';
             successMessage.style.display = 'none';
-        }, 3000);
+        }, SUCCESS_MESSAGE_DURATION);
     }
 
     // 实时邮箱验证反馈
@@ -114,19 +129,41 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// 清理CSV字段，防止CSV注入攻击
+function sanitizeCSVField(field) {
+    if (!field) return '';
+    // 转换为字符串
+    let sanitized = String(field);
+    // 移除或转义可能导致CSV注入的字符
+    sanitized = sanitized.replace(/^[=+\-@\t\r]/g, "'$&");
+    // 转义双引号
+    sanitized = sanitized.replace(/"/g, '""');
+    return sanitized;
+}
+
 // 导出RSVP数据功能（管理员使用）
 function exportRSVPData() {
-    const rsvpList = JSON.parse(localStorage.getItem('rsvpList') || '[]');
+    let rsvpList = [];
+    try {
+        rsvpList = JSON.parse(localStorage.getItem('rsvpList') || '[]');
+    } catch (e) {
+        console.error('Failed to parse RSVP data:', e);
+        return;
+    }
     
     if (rsvpList.length === 0) {
         console.log('没有RSVP数据');
         return;
     }
 
-    // 转换为CSV格式
+    // 转换为CSV格式，带安全清理
     let csv = '姓名,邮箱,留言,提交时间\n';
     rsvpList.forEach(rsvp => {
-        csv += `"${rsvp.name}","${rsvp.email}","${rsvp.message}","${rsvp.timestamp}"\n`;
+        const name = sanitizeCSVField(rsvp.name);
+        const email = sanitizeCSVField(rsvp.email);
+        const message = sanitizeCSVField(rsvp.message);
+        const timestamp = sanitizeCSVField(rsvp.timestamp);
+        csv += `"${name}","${email}","${message}","${timestamp}"\n`;
     });
 
     // 创建下载链接
