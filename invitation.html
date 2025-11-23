@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>邀请函 - 喵子和兔兔的日常</title>
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --success-color: #28a745;
+            --error-color: #e74c3c;
+            --border-color: #ddd;
+            --text-color: #333;
+            --text-secondary: #555;
+            --text-light: #666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .invitation-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            color: var(--text-light);
+            font-size: 16px;
+        }
+
+        .content {
+            margin-bottom: 30px;
+            line-height: 1.8;
+            color: var(--text-color);
+        }
+
+        .content p {
+            margin-bottom: 15px;
+        }
+
+        .email-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .email-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-group input.error {
+            border-color: var(--error-color);
+        }
+
+        .error-message {
+            color: var(--error-color);
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+            border: 1px solid #c3e6cb;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .info-box {
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .info-box p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .emoji {
+            font-size: 24px;
+            margin: 0 5px;
+        }
+
+        @media (max-width: 600px) {
+            .invitation-container {
+                padding: 25px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="invitation-container">
+        <div class="header">
+            <h1>🎉 诚挚邀请函 🎉</h1>
+            <p class="subtitle">喵子和兔兔的日常记录</p>
+        </div>
+
+        <div class="content">
+            <p>亲爱的朋友：</p>
+            <p>欢迎来到喵子<span class="emoji">🐱</span>和兔兔<span class="emoji">🐰</span>的日常世界！</p>
+            <p>我们诚挚地邀请您加入我们的社区，分享生活中的美好时刻。请留下您的联系方式，我们会第一时间将最新的动态和精彩内容发送给您。</p>
+        </div>
+
+        <div class="email-section">
+            <h3>📧 绑定您的邮箱</h3>
+            <form id="emailForm">
+                <div class="form-group">
+                    <label for="name">您的姓名</label>
+                    <input type="text" id="name" name="name" placeholder="请输入您的姓名" required>
+                    <div class="error-message" id="nameError">请输入您的姓名</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">邮箱地址</label>
+                    <input type="email" id="email" name="email" placeholder="请输入您的邮箱地址" required>
+                    <div class="error-message" id="emailError">请输入有效的邮箱地址</div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    确认绑定
+                </button>
+
+                <div class="success-message" id="successMessage">
+                    <strong>✅ 绑定成功！</strong><br>
+                    感谢您的关注，我们会将最新内容发送到您的邮箱。
+                </div>
+            </form>
+
+            <div class="info-box">
+                <p>💡 您的邮箱信息将被安全保存，我们承诺不会向第三方分享您的个人信息。</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 自动从URL参数获取邮箱（如果有）
+        function getEmailFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('email');
+        }
+
+        // 页面加载时自动填充邮箱
+        window.addEventListener('DOMContentLoaded', function() {
+            const emailFromURL = getEmailFromURL();
+            if (emailFromURL) {
+                document.getElementById('email').value = decodeURIComponent(emailFromURL);
+                // 如果URL中有邮箱，自动验证并高亮显示
+                const emailInput = document.getElementById('email');
+                if (validateEmail(emailFromURL)) {
+                    emailInput.style.borderColor = getComputedStyle(document.documentElement).getPropertyValue('--success-color').trim();
+                }
+            }
+        });
+
+        // 邮箱验证函数
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(String(email).toLowerCase());
+        }
+
+        // 表单验证
+        function validateForm() {
+            let isValid = true;
+            
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const nameError = document.getElementById('nameError');
+            const emailError = document.getElementById('emailError');
+
+            // 重置错误状态
+            nameInput.classList.remove('error');
+            emailInput.classList.remove('error');
+            nameError.classList.remove('show');
+            emailError.classList.remove('show');
+
+            // 验证姓名
+            if (name === '') {
+                nameInput.classList.add('error');
+                nameError.classList.add('show');
+                isValid = false;
+            }
+
+            // 验证邮箱
+            if (email === '' || !validateEmail(email)) {
+                emailInput.classList.add('error');
+                emailError.classList.add('show');
+                emailError.textContent = email === '' ? '请输入邮箱地址' : '请输入有效的邮箱地址';
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        // 保存邮箱绑定到localStorage
+        function saveEmailBinding(name, email) {
+            const binding = {
+                name: name,
+                email: email,
+                timestamp: new Date().toISOString()
+            };
+            
+            // 获取现有绑定列表
+            let bindings = [];
+            try {
+                bindings = JSON.parse(localStorage.getItem('emailBindings') || '[]');
+            } catch (e) {
+                console.warn('Failed to parse email bindings, starting fresh:', e);
+                bindings = [];
+            }
+            
+            // 检查邮箱是否已存在
+            const existingIndex = bindings.findIndex(b => b.email === email);
+            if (existingIndex >= 0) {
+                // 更新现有绑定
+                bindings[existingIndex] = binding;
+            } else {
+                // 添加新绑定
+                bindings.push(binding);
+            }
+            
+            try {
+                localStorage.setItem('emailBindings', JSON.stringify(bindings));
+                localStorage.setItem('currentEmailBinding', JSON.stringify(binding));
+            } catch (e) {
+                console.error('Failed to save email binding:', e);
+            }
+        }
+
+        // 表单提交处理
+        document.getElementById('emailForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!validateForm()) {
+                return;
+            }
+
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+            
+            // 禁用提交按钮
+            submitBtn.disabled = true;
+            submitBtn.textContent = '正在绑定...';
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+
+            // 模拟异步提交（实际应用中应该发送到服务器）
+            setTimeout(function() {
+                // 保存邮箱绑定
+                saveEmailBinding(name, email);
+                
+                // 显示成功消息
+                successMessage.classList.add('show');
+                
+                // 重置按钮状态
+                submitBtn.disabled = false;
+                submitBtn.textContent = '确认绑定';
+                
+                // 5秒后隐藏成功消息
+                setTimeout(function() {
+                    successMessage.classList.remove('show');
+                }, 5000);
+
+                // 在控制台输出绑定信息（调试用）
+                console.log('邮箱绑定成功:', { name, email, time: new Date().toLocaleString() });
+                
+                // 可以在这里添加实际的API调用
+                // fetch('/api/bind-email', {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify({ name, email })
+                // });
+            }, 1000);
+        });
+
+        // 实时邮箱验证反馈
+        document.getElementById('email').addEventListener('input', function(e) {
+            const email = e.target.value.trim();
+            const emailInput = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            const styles = getComputedStyle(document.documentElement);
+            
+            if (email !== '' && validateEmail(email)) {
+                emailInput.style.borderColor = styles.getPropertyValue('--success-color').trim();
+                emailError.classList.remove('show');
+            } else if (email !== '') {
+                emailInput.style.borderColor = styles.getPropertyValue('--error-color').trim();
+            } else {
+                emailInput.style.borderColor = styles.getPropertyValue('--border-color').trim();
+            }
+        });
+
+        // 姓名输入反馈
+        document.getElementById('name').addEventListener('input', function(e) {
+            const name = e.target.value.trim();
+            const nameInput = document.getElementById('name');
+            const nameError = document.getElementById('nameError');
+            
+            if (name !== '') {
+                nameInput.classList.remove('error');
+                nameError.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
